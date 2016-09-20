@@ -4,7 +4,7 @@ var j = 0;
 var k = 0;
 var items = [];
 var length = 10;
-var limit = 1100;
+var limit = 2800;
 var spotURL;
 var didScroll = false;
 
@@ -42,11 +42,11 @@ function ajaxSpotify(toSearch, types){
 function generatePictures(data, types){
     $('#results').html("<h3>Results for \"" + input + "\"</h3>");
     $.merge(items, data[types]['items']);
-    for (i; i < length; i++){
+    for (i; i < items.length; i++){
         $('#page').append("<div class='resultContainer'><div class='pictureBox'></div><div class='pictureText'></div></div>");
     }
 //    $(".pictureBox").each(function(){
-    for (j; j < length; j++){
+    for (j; j < items.length; j++){
         if (items[j].images[0] != undefined){
             $(".pictureBox").eq(j).css({"background-image" : "url("+ items[j].images[0].url + ")"});
         }
@@ -56,7 +56,7 @@ function generatePictures(data, types){
         $(".pictureBox").eq(j).wrap("<a target='_blank' href=" + items[j].external_urls.spotify + "></a>");
     }
 //    });
-    for (k; k < length; k++){
+    for (k; k < items.length; k++){
         if (items[k] != undefined){
             $(".pictureText").eq(k).html("<a target='_blank' href=" + items[k].external_urls.spotify + "><p>" + items[k].name + "</p></a>");
         }
@@ -83,7 +83,7 @@ function generatePictures(data, types){
             var useURL = spotURL + '&offset=' + length;
             console.log(useURL);
             ajaxSpotify(useURL, types);
-            limit += 1700;
+            limit += 3300;
         }
     }, 2000);
 
