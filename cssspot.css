@@ -1,0 +1,48 @@
+body {
+    background-color: #282828;
+}
+
+#title {
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+    color: white;
+}
+
+#form {
+    text-align: center;
+}
+
+.pictureBox {
+    width: 160px;
+    height: 160px;
+    border: 1px solid black;
+    background-size: 160px 160px;
+    display: inline-block;
+    margin-left: 5%;
+
+}
+
+.resultContainer {
+}
+
+.pictureText {
+    width: 300px;
+    height: 160px;
+    display: inline-block;
+    margin-left: 5%;
+    vertical-align: top;
+}
+
+.pictureText p {
+    margin-top: 75px;
+    text-align: center;
+    color: white;
+    text-decoration: underline;
+}
