@@ -15,8 +15,24 @@
                     </select>
                         <button id='submit'>Search</button>
                 </div>
-                <div id="results"></div>
+                <div id="results">
+                    <script id="resultScript" type="text/handlebars">
+                        <h3>Results for "{{input}}"</h3>
+                    </script>
+                </div>
+                <script id="resultsScript" type="text/handlebars">
+                    <div class='resultContainer'>
+                        <div class='pictureBox' id="{{id}}">
+                        </div>
+                        <div class='pictureText'>
+                        </div>
+                    </div>
+                </script>
+                <script id="moreButton" type="text/handlebars">
+                    <div class='more'><p>more</p></div>
+                </script>
             </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
             <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
             <script src='javaspot.js'></script>
         </body>

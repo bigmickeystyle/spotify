@@ -8,6 +8,17 @@ var limit = 2800;
 var spotURL;
 var didScroll = false;
 
+var templates = document.querySelectorAll('script[type="text/handlebars"]');
+
+Handlebars.templates = Handlebars.templates || {};
+
+Handlebars.partials = Handlebars.templates;
+
+Array.prototype.slice.call(templates).forEach(function(script) {
+    Handlebars.templates[script.id] = Handlebars.compile(script.innerHTML);
+});
+
+
 $('#submit').on('click', function(){
     $(".pictureBox").remove();
     $(".pictureText").remove();
@@ -15,6 +26,7 @@ $('#submit').on('click', function(){
     i = 0;
     j = 0;
     k = 0;
+    id = 0;
     items = [];
     length = 10;
     input = $('#inputString').val();
@@ -38,30 +50,31 @@ function ajaxSpotify(toSearch, types){
         }
     });
 }
-
+var id = 0;
 function generatePictures(data, types){
-    $('#results').html("<h3>Results for \"" + input + "\"</h3>");
+    $('#results').html(Handlebars.templates.resultScript({input}));
     $.merge(items, data[types]['items']);
     for (i; i < items.length; i++){
-        $('#page').append("<div class='resultContainer'><div class='pictureBox'></div><div class='pictureText'></div></div>");
+        $('#page').append(Handlebars.templates.resultsScript({id}));
+        id = id + 1;
     }
-//    $(".pictureBox").each(function(){
     for (j; j < items.length; j++){
         if (items[j].images[0] != undefined){
-            $(".pictureBox").eq(j).css({"background-image" : "url("+ items[j].images[0].url + ")"});
+            var it = '#' + j;
+            $(it).css({"background-image" : "url("+ items[j].images[0].url + ")"});
         }
         else{
-            $(".pictureBox").eq(j).css({"background-image" : "url('images/nada.png')"});
+            $(it).css({"background-image" : "url('images/nada.png')"});
         }
-        $(".pictureBox").eq(j).wrap("<a target='_blank' href=" + items[j].external_urls.spotify + "></a>");
+        var link = items[j].external_urls.spotify;
+        $(it).wrap("<a target='_blank' href=" + link + "></a>");
     }
-//    });
     for (k; k < items.length; k++){
         if (items[k] != undefined){
             $(".pictureText").eq(k).html("<a target='_blank' href=" + items[k].external_urls.spotify + "><p>" + items[k].name + "</p></a>");
         }
     }
-    $("#page").append("<div class='more'><p>more</p></div>");
+    $("#page").append(Handlebars.templates.moreButton({}));
     $(".more").on('click', function(){
         $('.more').remove();
         length += 10;
